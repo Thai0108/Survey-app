@@ -1,14 +1,22 @@
 import * as React from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export default class App extends React.Component {
     render() {
         return (
 
-                <WebView source={{ uri: 'https://khaosat.netlify.app' }} style={{ marginTop: 20, backgroundColor: "#fff" }} />
+            // <WebView source={{ uri: 'https://khaosat.netlify.app' }} style={{ marginTop: 30, backgroundColor: "#fff" }} />
+            <SafeAreaView style={styles.container}>
+                {/* <Text>{this.state.url}</Text> */}
+                {/* <View style={{ }}> */}
+                    <WebView
+                        style={{ flex: 1}}
+                        source={{ uri: 'https://khaosat.netlify.app'}}
+                    />
+                {/* </View> */}
+            </SafeAreaView>
 
-            
         );
     }
 }
@@ -16,8 +24,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: Platform.OS === 'ios' ? 0 : 30
     },
     title: {
         fontSize: 20,

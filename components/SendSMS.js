@@ -16,13 +16,13 @@ import colors from '../Colors'
 export default class App extends React.Component {
     state = {
         phone: '0827888637',
-        body: 'Hello ... form khảo sát: ',
+        body: 'Kính chào quý khách! Mong quý khách có thể dành một chút thời gian để thực hiện khảo sát của chúng tôi: ',
         link: '',
     }
     sendSMS = async (link) => {
         const status = await SMS.sendSMSAsync(
             this.state.phone,
-            this.state.body + link
+            this.state.body + "\n" + link
         );
         console.log(status);
     }
@@ -36,24 +36,27 @@ export default class App extends React.Component {
                     <TouchableOpacity style={{ position: 'absolute', top: 64, right: 32, zIndex: 10 }}
                         onPress={this.props.closeModal}
                     >
-                        <AntDesign name="close" size={24} color={colors.black} />
+                        <AntDesign name="close" size={24} color={colors.blue} />
                     </TouchableOpacity>
 
                     {/* Tiêu đề */}
-                    <View style={[styles.section, styles.header, { borderBottomColor: list.color }]}>
+                    {/* <View style={[styles.section, styles.header, { borderBottomColor: list.color }]}> */}
+                    <View style={[styles.section, styles.header, { borderBottomColor: colors.blue }]}>
                         <View>
                             <Text style={styles.title}>{list.title}</Text>
                         </View>
                     </View>
                     {/* Thân */}
                     <View style={[styles.section, { flex: 3, marginVertical: 16 }]}>
+                        <Text>Số điện thoại</Text>
                         <TextInput
-                            style={[styles.input, { borderColor: list.color }]}
+                            style={[styles.input, { borderColor: colors.blue }]}
                             onChangeText={text => this.setState({ phone: text })}
                             value={this.state.phone} />
+                        <Text>Nội dung</Text>
                         <TextInput
                             multiline
-                            style={[styles.input, { borderColor: list.color }]}
+                            style={[styles.input, { borderColor: colors.blue }]}
                             onChangeText={text => this.setState({ body: text})}
                             value={this.state.body} />
                     </View>

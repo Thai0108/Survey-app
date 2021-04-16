@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
 import colors from '../Colors';
-import TodoModal from './TodoModal'
+import TodoModal from './FormModal'
 import SendSMS from './SendSMS'
 
 import { AntDesign } from '@expo/vector-icons';

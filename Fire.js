@@ -23,7 +23,7 @@ class Fire {
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                callback(null, user);
+                callback(null, "");
             } else {
                 firebase.auth().signInAnonymously().catch(error => { callback(error); });
             }
@@ -43,19 +43,10 @@ class Fire {
         })
     }
 
-    addList(list){
-        let ref = this.ref
-
-        ref.add(list)
-    }
-
-    updateList(list){
-        let ref = this.ref
-
-        ref.doc(list.id).update(list)
-    }
+    
     get userId() {
         return firebase.auth().currentUser.uid
+        // return "fTtxyh7vTKbg28vP40N3GQ2gsoV2"
     }
 
 

@@ -12,9 +12,8 @@ import {
 } from 'react-native';
 import colors from '../Colors'
 import { AntDesign } from '@expo/vector-icons';
-import TodoList from '../components/TodoList'
+import TodoList from '../components/FormList'
 import SendSMS from '../components/SendSMS'
-import AddListModal from '../components/AddListModal'
 
 import { LogBox } from 'react-native';
 
@@ -31,7 +30,7 @@ export default class App extends React.Component {
     componentDidMount() {
         firebase = new Fire((error, user) => {
             if (error) {
-                return alert("Something went wrong")
+                return alert("Something went wrong" + error)
             }
 
             firebase.getLists(lists => {
@@ -48,30 +47,8 @@ export default class App extends React.Component {
         firebase.detach()
     }
 
-    toggleAddTodoModal() {
-        this.setState({ addTodoVisible: !this.state.addTodoVisible });
-    }
-
     renderList = (list, index) => {
         return <TodoList list={list} index={index} updateList={this.updateList} deleteTodo={this.deleteTodo} />
-    }
-
-    addList = list => {
-        firebase.addList({
-            name: list.name,
-            color: list.color,
-            todos: []
-        })
-    }
-
-    updateList = list => {
-        firebase.updateList(list)
-    }
-
-    deleteTodo = index => {
-        let list = this.state.lists
-        list.splice(index, 1)
-        this.updateList(list)
     }
 
     render() {
@@ -101,14 +78,6 @@ export default class App extends React.Component {
                         Phiếu <Text style={{ fontWeight: "300", color: colors.blue }}>khảo sát</Text>
                     </Text>
                     <View style={styles.divider} />
-                </View>
-
-                <View style={{ marginVertical: 48 }}>
-                    {/* <TouchableOpacity style={styles.addList} onPress={() => this.toggleAddTodoModal()}>
-                        <AntDesign name="plus" size={26} color={colors.blue} />
-                    </TouchableOpacity>
-
-                    <Text style={styles.add}>Tạo ghi chú</Text> */}
                 </View>
 
                 <View style={{ height: 275, paddingLeft: 32 }}>
