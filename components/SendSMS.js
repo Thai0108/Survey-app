@@ -15,14 +15,14 @@ import { AntDesign } from '@expo/vector-icons';
 import colors from '../Colors'
 export default class App extends React.Component {
     state = {
-        phone: '0827888637',
+        phone: '',
         body: 'Kính chào quý khách! Mong quý khách có thể dành một chút thời gian để thực hiện khảo sát của chúng tôi: ',
         link: '',
     }
     sendSMS = async (link) => {
         const status = await SMS.sendSMSAsync(
             this.state.phone,
-            this.state.body + "\n" + link
+            this.state.body+ "\n" + "\n" + link
         );
         console.log(status);
     }
@@ -48,12 +48,12 @@ export default class App extends React.Component {
                     </View>
                     {/* Thân */}
                     <View style={[styles.section, { flex: 3, marginVertical: 16 }]}>
-                        <Text>Số điện thoại</Text>
+                        <Text style={{marginBottom:10, marginTop:30}}>Số điện thoại</Text>
                         <TextInput
-                            style={[styles.input, { borderColor: colors.blue }]}
+                            style={[styles.input, { borderColor: colors.blue, flex:0.5, }]}
                             onChangeText={text => this.setState({ phone: text })}
                             value={this.state.phone} />
-                        <Text>Nội dung</Text>
+                        <Text style={{marginBottom:10, marginTop:30}}>Nội dung</Text>
                         <TextInput
                             multiline
                             style={[styles.input, { borderColor: colors.blue }]}
@@ -115,19 +115,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8
 
     },
-    addTodo: {
+    addForm: {
         borderRadius: 4,
         padding: 16,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    todoContainer: {
+    FormContainer: {
         paddingVertical: 16,
         flexDirection: "row",
         alignItems: "center",
         paddingLeft: 32
     },
-    todo: {
+    Form: {
         color: colors.black,
         fontWeight: "700",
         fontSize: 16

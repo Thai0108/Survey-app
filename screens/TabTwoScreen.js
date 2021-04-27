@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import colors from '../Colors'
 import { AntDesign } from '@expo/vector-icons';
-import TodoList from '../components/FormList'
+import FormList from '../components/FormList'
 import SendSMS from '../components/SendSMS'
 
 import { LogBox } from 'react-native';
@@ -21,7 +21,7 @@ LogBox.ignoreLogs(['Setting a timer']);
 import Fire from '../Fire'
 export default class App extends React.Component {
     state = {
-        addTodoVisible: false,
+        addFormVisible: false,
         lists: [],
         user: {},
         loading: true
@@ -48,7 +48,7 @@ export default class App extends React.Component {
     }
 
     renderList = (list, index) => {
-        return <TodoList list={list} index={index} updateList={this.updateList} deleteTodo={this.deleteTodo} />
+        return <FormList list={list} index={index} updateList={this.updateList} deleteForm={this.deleteForm} />
     }
 
     render() {
@@ -63,11 +63,11 @@ export default class App extends React.Component {
             <View style={styles.container}>
                 <Modal
                     animationType="slide"
-                    visible={this.state.addTodoVisible}
-                    onRequestClose={() => this.toggleAddTodoModal()}
+                    visible={this.state.addFormVisible}
+                    onRequestClose={() => this.toggleAddFormModal()}
                 >
-                    {/* <AddListModal closeModal={() => this.toggleAddTodoModal()} addList={this.addList} /> */}
-                    <SendSMS closeModal={() => this.toggleAddTodoModal()} />
+                    {/* <AddListModal closeModal={() => this.toggleAddFormModal()} addList={this.addList} /> */}
+                    <SendSMS closeModal={() => this.toggleAddFormModal()} />
                 </Modal>
                 <View>
                     {/* <Text>User: {this.state.user.uid}</Text> */}

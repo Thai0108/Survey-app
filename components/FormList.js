@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
 import colors from '../Colors';
-import TodoModal from './FormModal'
+import FormModal from './FormModal'
 import SendSMS from './SendSMS'
 
 import { AntDesign } from '@expo/vector-icons';
-export default class TodoList extends React.Component {
+export default class FormList extends React.Component {
     state = {
         showListVisible: false,
     }
@@ -15,13 +15,13 @@ export default class TodoList extends React.Component {
     }
 
     read(index) {
-        this.props.deleteTodo(index);
+        this.props.deleteForm(index);
     }
     render() {
         const list = this.props.list
         const index = this.props.index
-        // const completedCount = list.todos.filter(todo => todo.completed).length;
-        // const remainingCount = list.todos.length - completedCount;
+        // const completedCount = list.Forms.filter(Form => Form.completed).length;
+        // const remainingCount = list.Forms.length - completedCount;
 
 
         return (
@@ -30,7 +30,7 @@ export default class TodoList extends React.Component {
                     visible={this.state.showListVisible}
                     onRequestClose={() => this.toggleListModal()}
                 >
-                    {/* <TodoModal
+                    {/* <FormModal
                         list={list}
                         closeModal={() => this.toggleListModal()}
                         updateList={this.props.updateList}
@@ -56,7 +56,7 @@ export default class TodoList extends React.Component {
                     style={[styles.listContainer, { backgroundColor: "#92DFF3" }]}
                     onPress={() => this.toggleListModal()}
                 >
-                    <Text style={styles.listTitle} numberOfLines={1}>
+                    <Text style={styles.listTitle} numberOfLines={4}>
                         {list.title}
                     </Text>
 

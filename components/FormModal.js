@@ -16,51 +16,51 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import colors from "../Colors";
 
-export default class TodoModal extends React.Component {
+export default class FormModal extends React.Component {
     state = {
-        newTodo: ""
+        newForm: ""
     };
-    toggleTodoCompleted = index => {
+    toggleFormCompleted = index => {
         let list = this.props.list
-        list.todos[index].completed = !list.todos[index].completed;
+        list.Forms[index].completed = !list.Forms[index].completed;
         this.props.updateList(list);
     };
 
-    addTodo = () => {
+    addForm = () => {
         let list = this.props.list
-        if (!list.todos.some(todo => todo.title === this.state.newTodo)) {
-            list.todos.push({ title: this.state.newTodo, completed: false });
+        if (!list.Forms.some(Form => Form.title === this.state.newForm)) {
+            list.Forms.push({ title: this.state.newForm, completed: false });
             this.props.updateList(list);
         }
-        this.setState({ newTodo: "" });
+        this.setState({ newForm: "" });
         Keyboard.dismiss();
     };
-    deleteTodo = index => {
+    deleteForm = index => {
         let list = this.props.list
-        list.todos.splice(index, 1)
+        list.Forms.splice(index, 1)
         this.props.updateList(list)
     }
 
-    renderTodo = (todo, index) => {
+    renderForm = (Form, index) => {
         return (
-            <View style={styles.todoContainer}>
+            <View style={styles.FormContainer}>
 
-                <TouchableOpacity onPress={() => this.toggleTodoCompleted(index)}>
+                <TouchableOpacity onPress={() => this.toggleFormCompleted(index)}>
                     <Feather
-                        name={todo.completed ? "check-square" : "square"}
+                        name={Form.completed ? "check-square" : "square"}
                         size={24}
-                        color={todo.completed ? colors.gray : colors.black}
+                        color={Form.completed ? colors.gray : colors.black}
                         style={{ width: 32 }}
                     />
                 </TouchableOpacity>
 
                 <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
-                    <Text style={[styles.todo, {
-                        textDecorationLine: todo.completed ? 'line-through' : "none",
-                        color: todo.completed ? colors.gray : colors.black
-                    }]}>{todo.title}</Text>
+                    <Text style={[styles.Form, {
+                        textDecorationLine: Form.completed ? 'line-through' : "none",
+                        color: Form.completed ? colors.gray : colors.black
+                    }]}>{Form.title}</Text>
 
-                    <TouchableOpacity onPress={() => this.deleteTodo(index)}>
+                    <TouchableOpacity onPress={() => this.deleteForm(index)}>
                         <FontAwesome name="trash-o" size={24} color="black" />
                     </TouchableOpacity>
                 </View>
@@ -72,8 +72,8 @@ export default class TodoModal extends React.Component {
 
     render() {
         const list = this.props.list
-        const taskCount = list.todos.length;
-        const completedCount = list.todos.filter(todo => todo.completed).length;
+        const taskCount = list.Forms.length;
+        const completedCount = list.Forms.filter(Form => Form.completed).length;
         return (
             <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
                 <SafeAreaView style={styles.container}>
@@ -96,8 +96,8 @@ export default class TodoModal extends React.Component {
 
                     <View style={[styles.section, { flex: 3, marginVertical: 16 }]}>
                         <FlatList
-                            data={list.todos}
-                            renderItem={({ item, index }) => this.renderTodo(item, index)}
+                            data={list.Forms}
+                            renderItem={({ item, index }) => this.renderForm(item, index)}
                             keyExtractor={item => item.title}
                             showsVerticalScrollIndicator={false}
                         />
@@ -106,11 +106,11 @@ export default class TodoModal extends React.Component {
                     <View style={[styles.section, styles.footer]} >
                         <TextInput
                             style={[styles.input, { borderColor: list.color }]}
-                            onChangeText={text => this.setState({ newTodo: text })}
-                            value={list.newTodo} />
+                            onChangeText={text => this.setState({ newForm: text })}
+                            value={list.newForm} />
                         <TouchableOpacity
-                            style={[styles.addTodo, { backgroundColor: list.color }]}
-                            onPress={() => this.addTodo()}
+                            style={[styles.addForm, { backgroundColor: list.color }]}
+                            onPress={() => this.addForm()}
                         >
                             <AntDesign name="plus" size={16} color={colors.white} />
                         </TouchableOpacity>
@@ -164,19 +164,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8
 
     },
-    addTodo: {
+    addForm: {
         borderRadius: 4,
         padding: 16,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    todoContainer: {
+    FormContainer: {
         paddingVertical: 16,
         flexDirection: "row",
         alignItems: "center",
         paddingLeft: 32
     },
-    todo: {
+    Form: {
         color: colors.black,
         fontWeight: "700",
         fontSize: 16

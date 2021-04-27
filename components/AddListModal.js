@@ -8,7 +8,7 @@ export default class AddListModal extends React.Component {
         name: " ",
         color: this.backgroundColors[0]
     };
-    createTodo = () => {
+    createForm = () => {
         const { name, color } = this.state;
 
         const list = {name, color}
@@ -44,7 +44,7 @@ export default class AddListModal extends React.Component {
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 12 }}>
                         {this.renderColors()}</View>
 
-                    <TouchableOpacity style={[styles.create, { backgroundColor: this.state.color }]} onPress={this.createTodo}>
+                    <TouchableOpacity style={[styles.create, { backgroundColor: this.state.color }]} onPress={this.createForm}>
                         <Text style={{ color: colors.white, fontWeight: "600" }}> Tạo mới!</Text>
 
                     </TouchableOpacity>

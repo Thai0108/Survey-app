@@ -30,7 +30,7 @@ export default function App() {
                 // <MaterialCommunityIcons name={focused ? "inbox-multiple" : "inbox-multiple-outline"} size={24} color="black" />
                 <MaterialCommunityIcons name="inbox-multiple" size={24} color={focused ? "red" : "black"} />
               );
-            } else if (route.name === 'Settings') {
+            } else if (route.name === 'SMS') {
               return (
                 // <MaterialIcons name="sms" size={24} color={focused ? "blue" : "black"} />
                 <MaterialCommunityIcons name="send" size={24} color={focused ? "red" : "black"} />
@@ -51,7 +51,7 @@ export default function App() {
           }}
         />
         <Tab.Screen 
-        name="Settings" 
+        name="SMS" 
         component={SettingsScreen} 
         options={{ 
             // tabBarBadge: 3 
