@@ -8,7 +8,10 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     TextInput,
-    
+    TouchableWithoutFeedback,
+    Keyboard,
+    Platform
+
 } from 'react-native';
 import * as SMS from 'expo-sms';
 import { AntDesign } from '@expo/vector-icons';
@@ -16,13 +19,13 @@ import colors from '../Colors'
 export default class App extends React.Component {
     state = {
         phone: '',
-        body: 'Kính chào quý khách! Mong quý khách có thể dành một chút thời gian để thực hiện khảo sát của chúng tôi: ',
+        body: 'Cảm ơn quý khách đã sử dụng dịch vụ của khách sạn! Quý khách vui lòng gửi đánh giá chất lượng dịch vụ để khách sạn ngày một tốt hơn.',
         link: '',
     }
     sendSMS = async (link) => {
         const status = await SMS.sendSMSAsync(
             this.state.phone,
-            this.state.body+ "\n" + "\n" + link
+            this.state.body + "\n" + "\n" + link
         );
         console.log(status);
     }
@@ -30,45 +33,50 @@ export default class App extends React.Component {
         const list = this.props.list
         const link = list.link
         return (
-            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-                <SafeAreaView style={styles.container}>
-                    {/* Nút trở lại */}
-                    <TouchableOpacity style={{ position: 'absolute', top: 64, right: 32, zIndex: 10 }}
-                        onPress={this.props.closeModal}
-                    >
-                        <AntDesign name="close" size={24} color={colors.blue} />
-                    </TouchableOpacity>
+            // <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <SafeAreaView style={styles.container}>
+                        {/* Nút trở lại */}
+                        <TouchableOpacity style={{ position: 'absolute', top: 30, right: 32, zIndex: 10 }}
+                            onPress={this.props.closeModal}
+                        >
+                            <AntDesign name="close" size={24} color={colors.blue} />
+                        </TouchableOpacity>
 
-                    {/* Tiêu đề */}
-                    {/* <View style={[styles.section, styles.header, { borderBottomColor: list.color }]}> */}
-                    <View style={[styles.section, styles.header, { borderBottomColor: colors.blue }]}>
-                        <View>
-                            <Text style={styles.title}>{list.title}</Text>
+                        {/* Tiêu đề */}
+                        {/* <View style={[styles.section, styles.header, { borderBottomColor: list.color }]}> */}
+                        <View style={[styles.section, styles.header, { borderBottomColor: colors.blue }]}>
+                            <View>
+                                <Text style={styles.title} numberOfLines={3}>{list.title}</Text>
+                            </View>
                         </View>
-                    </View>
-                    {/* Thân */}
-                    <View style={[styles.section, { flex: 3, marginVertical: 16 }]}>
-                        <Text style={{marginBottom:10, marginTop:30}}>Số điện thoại</Text>
-                        <TextInput
-                            style={[styles.input, { borderColor: colors.blue, flex:0.5, }]}
-                            onChangeText={text => this.setState({ phone: text })}
-                            value={this.state.phone} />
-                        <Text style={{marginBottom:10, marginTop:30}}>Nội dung</Text>
-                        <TextInput
-                            multiline
-                            style={[styles.input, { borderColor: colors.blue }]}
-                            onChangeText={text => this.setState({ body: text})}
-                            value={this.state.body} />
-                    </View>
-                    {/* Đuôi */}
-                    <View style={[styles.section, styles.footer]} >
-                        <Button
-                            onPress={() => this.sendSMS(link)}
-                            title="Gửi phiếu"
-                        />
-                    </View>
-                </SafeAreaView>
+                        {/* Thân */}
+                        <View style={[styles.section, { flex: 3, marginVertical: 16 }]}>
+                            <Text style={{ marginBottom: 10, marginTop: 30, marginLeft:10 }}>Số điện thoại</Text>
+                            <TextInput
+                                style={[styles.input, { borderColor: colors.blue, flex: 0.5, }]}
+                                onChangeText={text => this.setState({ phone: text })}
+                                value={this.state.phone} />
+                            <Text style={{ marginBottom: 10, marginTop: 30, marginLeft:10 }}>Nội dung</Text>
+                            <TextInput
+                                multiline
+                                style={[styles.input, { borderColor: colors.blue }]}
+                                onChangeText={text => this.setState({ body: text })}
+                                value={this.state.body} />
+                        </View>
+                        {/* Đuôi */}
+                        <View style={[styles.section, styles.footer]} >
+                            <Button
+                                onPress={() => this.sendSMS(link)}
+                                title="Gửi phiếu"
+                            />
+                        </View>
+                    </SafeAreaView>
+                </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
+
+            // </KeyboardAvoidingView>
         )
     }
 }
@@ -85,14 +93,15 @@ const styles = StyleSheet.create({
     },
     header: {
         justifyContent: 'flex-end',
-        marginLeft: 64,
+        marginRight: 54,
         borderBottomWidth: 3,
         paddingTop: 16
     },
     title: {
         fontSize: 30,
         fontWeight: "800",
-        color: colors.black
+        color: colors.black,
+        paddingLeft: 10,
     },
     taskCount: {
         marginTop: 4,

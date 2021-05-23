@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
         height: 250
     },
     listTitle: {
+        textAlign: "center",
         fontSize: 24,
         fontWeight: "700",
         color: colors.white,
